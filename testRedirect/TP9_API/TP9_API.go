@@ -1,7 +1,7 @@
 package TP9_API
 
 import (
-	"github.com/Gaboty/testRedirect/TP9_API/controller"
+	"github.com/franciscolmos/go-meli-integration/testRedirect/TP9_API/controller"
 	"github.com/gin-gonic/gin"
 )
 
