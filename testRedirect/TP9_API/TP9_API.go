@@ -10,3 +10,4 @@ func RunAPI() {
 	r.GET("/auth/code", controller.GetToken)
 	r.Run( ":8080")
 }
+
