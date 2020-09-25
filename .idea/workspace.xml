@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="0454c9e8-ad80-4be9-bd06-9a317489d452" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/domain/item.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/domain/order.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testRedirect/TP9_API/TP9_API.go" beforeDir="false" afterPath="$PROJECT_DIR$/testRedirect/TP9_API/TP9_API.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testRedirect/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testRedirect/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testRedirect/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testRedirect/.idea/testRedirect.iml" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/.idea/testRedirect.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testRedirect/TP9_API/TP9_API.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/router/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testRedirect/TP9_API/controller/authController.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/authController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testRedirect/main/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
   </component>
   <component name="GOROOT" path="D:\Go" />
   <component name="Git.Settings">
@@ -24,6 +58,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -34,6 +69,9 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Users\Pepo\Documents\FACULTAD\3ER AÑO\LAB3\go-meli-integration\pkg" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Users\Pepo\Documents\FACULTAD\3ER AÑO\LAB3\go-meli-integration" />
     </key>
@@ -66,29 +104,45 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
+    <state x="614" y="307" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1600916073983">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="614" y="307" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1680.1010@0.0.1680.1010" timestamp="1600916073983" />
     <state x="620" y="260" key="FileChooserDialogImpl" timestamp="1599789749999">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="620" y="260" key="FileChooserDialogImpl/0.0.1680.1010@0.0.1680.1010" timestamp="1599789749999" />
-    <state width="1637" height="481" key="GridCell.Tab.0.bottom" timestamp="1600913710609">
+    <state width="1637" height="216" key="GridCell.Tab.0.bottom" timestamp="1600918384059">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="481" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1600913710609" />
-    <state width="1637" height="481" key="GridCell.Tab.0.center" timestamp="1600913710609">
+    <state width="1637" height="216" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1600918384059" />
+    <state width="1637" height="216" key="GridCell.Tab.0.center" timestamp="1600918384059">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="481" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1600913710609" />
-    <state width="1637" height="481" key="GridCell.Tab.0.left" timestamp="1600913710608">
+    <state width="1637" height="216" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1600918384059" />
+    <state width="1637" height="216" key="GridCell.Tab.0.left" timestamp="1600918384059">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="481" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1600913710608" />
-    <state width="1637" height="481" key="GridCell.Tab.0.right" timestamp="1600913710609">
+    <state width="1637" height="216" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1600918384059" />
+    <state width="1637" height="216" key="GridCell.Tab.0.right" timestamp="1600918384059">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="481" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1600913710609" />
+    <state width="1637" height="216" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1600918384059" />
   </component>
 </project>

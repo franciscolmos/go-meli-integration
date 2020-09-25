@@ -1,7 +1,7 @@
-package TP9_API
+package router
 
 import (
-	"github.com/franciscolmos/go-meli-integration/testRedirect/TP9_API/controller"
+	"github.com/franciscolmos/go-meli-integration/pkg/controller"
 	"github.com/gin-gonic/gin"
 )
 
