@@ -20,17 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0454c9e8-ad80-4be9-bd06-9a317489d452" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/domain/item.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/domain/order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testRedirect/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testRedirect/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testRedirect/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testRedirect/.idea/testRedirect.iml" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/.idea/testRedirect.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testRedirect/TP9_API/TP9_API.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/router/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testRedirect/TP9_API/controller/authController.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/authController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testRedirect/main/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/controller/authController.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/authController.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,13 +69,22 @@
       <recent name="D:\Users\Pepo\Documents\FACULTAD\3ER AÑO\LAB3\go-meli-integration" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build main.go">
+  <component name="RunManager" selected="Go Build.go build github.com/franciscolmos/go-meli-integration/pkg">
     <configuration name="go build github.com/franciscolmos/go-meli-integration/cmd/testRedirect/main" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="go-meli-integration" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
       <filePath value="$PROJECT_DIR$/cmd/testRedirect/main/main.go" />
       <package value="github.com/franciscolmos/go-meli-integration/cmd/testRedirect/main" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build github.com/franciscolmos/go-meli-integration/pkg" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="go-meli-integration" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/pkg/main.go" />
+      <package value="github.com/franciscolmos/go-meli-integration/pkg" />
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
@@ -96,6 +98,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build github.com/franciscolmos/go-meli-integration/pkg" />
         <item itemvalue="Go Build.go build main.go" />
         <item itemvalue="Go Build.go build github.com/franciscolmos/go-meli-integration/cmd/testRedirect/main" />
       </list>
@@ -128,21 +131,21 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="620" y="260" key="FileChooserDialogImpl/0.0.1680.1010@0.0.1680.1010" timestamp="1599789749999" />
-    <state width="1637" height="216" key="GridCell.Tab.0.bottom" timestamp="1600918384059">
+    <state width="1637" height="501" key="GridCell.Tab.0.bottom" timestamp="1601521249967">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="216" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1600918384059" />
-    <state width="1637" height="216" key="GridCell.Tab.0.center" timestamp="1600918384059">
+    <state width="1637" height="501" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1601521249967" />
+    <state width="1637" height="501" key="GridCell.Tab.0.center" timestamp="1601521249967">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="216" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1600918384059" />
-    <state width="1637" height="216" key="GridCell.Tab.0.left" timestamp="1600918384059">
+    <state width="1637" height="501" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1601521249967" />
+    <state width="1637" height="501" key="GridCell.Tab.0.left" timestamp="1601521249967">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="216" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1600918384059" />
-    <state width="1637" height="216" key="GridCell.Tab.0.right" timestamp="1600918384059">
+    <state width="1637" height="501" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1601521249967" />
+    <state width="1637" height="501" key="GridCell.Tab.0.right" timestamp="1601521249967">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1637" height="216" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1600918384059" />
+    <state width="1637" height="501" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1601521249967" />
   </component>
 </project>
