@@ -8,6 +8,7 @@ import (
 func RunAPI() {
 	r := gin.Default()
 	r.GET("/auth/code", controller.GetToken)
+	r.GET("/seller/items", controller.GetItems)
 	r.Run( ":8080")
 }
 
