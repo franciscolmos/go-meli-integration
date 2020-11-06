@@ -12,6 +12,7 @@ import (
 
 var code string
 
+// TOKEN
 type Token struct {
 	Grant_type string 		`json:"grant_type"`
 	Client_id int 			`json:"client_id"`
@@ -29,6 +30,7 @@ type TokenResp struct {
 	Refresh_token string 	`json:"refresh_token"`
 }
 
+// ITEMS DEL VENDEDOR
 type ItemsId struct {
 	Id []string              `json:"results"`
 }
@@ -71,6 +73,20 @@ func GetToken(c *gin.Context) {
 	code = c.Query("code")
 	fmt.Println("code: " + code)
 	TokenRequest(code)
+}
+
+
+// PREGUNTAS SIN RESPONDER
+type Question struct {
+	Date_created string   `json:"date_created"`
+	Item_id string        `json:"item_id"`
+	Text string           `json:"text"`
+	Status string         `json:"status"`
+ 	Answer string         `json:"answer"`
+}
+
+type Questions struct {
+	Questions []Question  `json:"questions"`
 }
 
 
@@ -123,7 +139,7 @@ func TokenRequest(code string) {
 	fmt.Printf("%+v\n", itemsIds)
 
 
-	// mostramos todos los items del vendedor
+	// Listado de productos (Título, Cantidad, Precio, Primera foto)
 	for i := 0; i < len(itemsIds.Id); i++ {
 		resp2, err := http.Get("https://api.mercadolibre.com/items/" + itemsIds.Id[i] + "?access_token=" + tokenResp.Access_token)
 		if err != nil {
@@ -137,7 +153,7 @@ func TokenRequest(code string) {
 		fmt.Printf("%+v\n", item)
 	}
 
-	// mostramos los items vendidos
+	//  Ventas efectuadas
 	resp2, err := http.Get("https://api.mercadolibre.com/orders/search?seller="+ strconv.Itoa(tokenResp.User_id) +"&order.status=paid&access_token=" + tokenResp.Access_token)
 
 	defer resp2.Body.Close()
@@ -147,4 +163,18 @@ func TokenRequest(code string) {
 	var soldItems SoldItem
 	json.Unmarshal(data2, &soldItems)
 	fmt.Printf("%+v\n", soldItems)
+
+	// Preguntas pendientes por responder por cada ítem ordenadas de las más antiguas a las más recientes.
+	for i := 0; i < len(itemsIds.Id); i++ {
+		resp3, err := http.Get("https://api.mercadolibre.com/questions/search?item=" + itemsIds.Id[i] + "&access_token=" + tokenResp.Access_token + "&sort_fields=date_created&sort_types=ASC")
+		if err != nil {
+			fmt.Errorf("Error", err.Error())
+			return
+		}
+		data3, err := ioutil.ReadAll(resp3.Body)
+
+		var questions Questions
+		json.Unmarshal(data3, &questions)
+		fmt.Printf("%+v\n", questions)
+	}
 }
