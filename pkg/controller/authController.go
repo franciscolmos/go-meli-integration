@@ -7,10 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"net/http"
-	"strconv"
 )
 
 var code string
+var TokenR TokenResp
 
 // TOKEN
 type Token struct {
@@ -30,74 +30,20 @@ type TokenResp struct {
 	Refresh_token string 	`json:"refresh_token"`
 }
 
-// ITEMS DEL VENDEDOR
-type ItemsId struct {
-	Id []string              `json:"results"`
-}
-
-type Picture struct {
-	Url string                 `json:"url"`
-}
-
-type Item struct {
-	Title string               `json:"title"`
-	Price float64              `json:"price"`
-	Available_quantity int     `json:"available_quantity"`
-	Pictures []Picture		   `json:"pictures"`
-}
-
-
-// ITEMS VENDIDOS
-type SingleItem struct {
-	Id    string                `json:"id"`
-	Title string                `json:"title"`
-}
-
-type Order_Items struct {
-	 SingleItem SingleItem    `json:"item"`
-	 Quantity int               `json:"quantity"`
-	 Unit_price int             `json:"unit_price"`
-
-}
-
-type Result struct {
-	Order_Items []Order_Items   `json:"order_items"`
-	Total_amount int            `json:"total_amount"`
-}
-
-type SoldItem struct {
-	Result []Result             `json:"results"`
-}
-
+// FUNCIONES PARA INTERCAMBIAR EL CODE POR UN ACCESS TOKEN
 func GetToken(c *gin.Context) {
 	code = c.Query("code")
 	fmt.Println("code: " + code)
-	TokenRequest(code)
+	TokenRequest(code, c)
 }
 
-
-// PREGUNTAS SIN RESPONDER
-type Question struct {
-	Date_created string   `json:"date_created"`
-	Item_id string        `json:"item_id"`
-	Text string           `json:"text"`
-	Status string         `json:"status"`
- 	Answer string         `json:"answer"`
-}
-
-type Questions struct {
-	Questions []Question  `json:"questions"`
-}
-
-
-func TokenRequest(code string) {
-
+func TokenRequest(code string, c *gin.Context) {
 	u := Token{
-		Grant_type: "authorization_code",
-		Client_id: 2760149476611182,
+		Grant_type:    "authorization_code",
+		Client_id:     2760149476611182,
 		Client_secret: "G0vTscPHYNlLrB148wwdsjuwkqWU1HOy",
-		Code: code,
-		Redirect_uri: "http://localhost:8080/auth/code/",
+		Code:          code,
+		Redirect_uri:  "http://localhost:8080/auth/code/",
 	}
 
 	b, err := json.Marshal(u)
@@ -109,10 +55,10 @@ func TokenRequest(code string) {
 	fmt.Println(string(b))
 
 	// Intercambiamos code por token
-	resp, err := http.Post("https://api.mercadolibre.com/oauth/token","application/json; application/x-www-form-urlencoded", bytes.NewBuffer(b))
+	resp, err := http.Post("https://api.mercadolibre.com/oauth/token", "application/json; application/x-www-form-urlencoded", bytes.NewBuffer(b))
 
 	if err != nil {
-		fmt.Errorf("Error",err.Error())
+		fmt.Errorf("Error", err.Error())
 		return
 	}
 
@@ -123,58 +69,9 @@ func TokenRequest(code string) {
 	bodyString := string(data)
 	fmt.Println(bodyString)
 
-	var tokenResp TokenResp
-	json.Unmarshal(data, &tokenResp)
-	fmt.Printf("%+v\n", tokenResp)
+	json.Unmarshal(data, &TokenR)
+	fmt.Printf("%+v\n", TokenR)
 
-	// Obtenemos listado de ids de items del vendedor con id de vendedor y accessToken dinamicos
-	resp1, err := http.Get("https://api.mercadolibre.com/users/"+ strconv.Itoa(tokenResp.User_id) +"/items/search?access_token=" + tokenResp.Access_token)
-
-	defer resp1.Body.Close()
-
-	data1, err := ioutil.ReadAll(resp1.Body)
-
-	var itemsIds ItemsId
-	json.Unmarshal(data1, &itemsIds)
-	fmt.Printf("%+v\n", itemsIds)
-
-
-	// Listado de productos (Título, Cantidad, Precio, Primera foto)
-	for i := 0; i < len(itemsIds.Id); i++ {
-		resp2, err := http.Get("https://api.mercadolibre.com/items/" + itemsIds.Id[i] + "?access_token=" + tokenResp.Access_token)
-		if err != nil {
-			fmt.Errorf("Error",err.Error())
-			return
-		}
-		data2, err := ioutil.ReadAll(resp2.Body)
-
-		var item Item
-		json.Unmarshal(data2, &item)
-		fmt.Printf("%+v\n", item)
-	}
-
-	//  Ventas efectuadas
-	resp2, err := http.Get("https://api.mercadolibre.com/orders/search?seller="+ strconv.Itoa(tokenResp.User_id) +"&order.status=paid&access_token=" + tokenResp.Access_token)
-
-	defer resp2.Body.Close()
-
-	data2, err := ioutil.ReadAll(resp2.Body)
-
-	var soldItems SoldItem
-	json.Unmarshal(data2, &soldItems)
-	fmt.Printf("%+v\n", soldItems)
-
-	// Preguntas pendientes por responder por cada ítem ordenadas de las más antiguas a las más recientes.
-	for i := 0; i < len(itemsIds.Id); i++ {
-		resp3, err := http.Get("https://api.mercadolibre.com/questions/search?item=" + itemsIds.Id[i] + "&access_token=" + tokenResp.Access_token + "&sort_fields=date_created&sort_types=ASC")
-		if err != nil {
-			fmt.Errorf("Error", err.Error())
-			return
-		}
-		data3, err := ioutil.ReadAll(resp3.Body)
-
-		var questions Questions
-		json.Unmarshal(data3, &questions)
-		fmt.Printf("%+v\n", questions)
-	}
+	c.JSON(200, TokenR)
 }
+
