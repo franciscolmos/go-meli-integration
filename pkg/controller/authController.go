@@ -45,6 +45,27 @@ type Item struct {
 }
 
 
+// ITEMS VENDIDOS
+type SingleItem struct {
+	Id    string                `json:"id"`
+	Title string                `json:"title"`
+}
+
+type Order_Items struct {
+	 SingleItem SingleItem    `json:"item"`
+	 Quantity int               `json:"quantity"`
+	 Unit_price int             `json:"unit_price"`
+
+}
+
+type Result struct {
+	Order_Items []Order_Items   `json:"order_items"`
+	Total_amount int            `json:"total_amount"`
+}
+
+type SoldItem struct {
+	Result []Result             `json:"results"`
+}
 
 func GetToken(c *gin.Context) {
 	code = c.Query("code")
@@ -104,7 +125,7 @@ func TokenRequest(code string) {
 
 	// mostramos todos los items del vendedor
 	for i := 0; i < len(itemsIds.Id); i++ {
-		resp2, err := http.Get("https://api.mercadolibre.com/items/" + itemsIds.Id[i] + "?access_token=APP_USR-2760149476611182-110500-2af3caa0dd8bce845f0493a720b4d10d-651268893")
+		resp2, err := http.Get("https://api.mercadolibre.com/items/" + itemsIds.Id[i] + "?access_token=" + tokenResp.Access_token)
 		if err != nil {
 			fmt.Errorf("Error",err.Error())
 			return
@@ -115,4 +136,15 @@ func TokenRequest(code string) {
 		json.Unmarshal(data2, &item)
 		fmt.Printf("%+v\n", item)
 	}
+
+	// mostramos los items vendidos
+	resp2, err := http.Get("https://api.mercadolibre.com/orders/search?seller="+ strconv.Itoa(tokenResp.User_id) +"&order.status=paid&access_token=" + tokenResp.Access_token)
+
+	defer resp2.Body.Close()
+
+	data2, err := ioutil.ReadAll(resp2.Body)
+
+	var soldItems SoldItem
+	json.Unmarshal(data2, &soldItems)
+	fmt.Printf("%+v\n", soldItems)
 }
