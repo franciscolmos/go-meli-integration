@@ -43,7 +43,7 @@ func TokenRequest(code string, c *gin.Context) {
 		Client_id:     2760149476611182,
 		Client_secret: "G0vTscPHYNlLrB148wwdsjuwkqWU1HOy",
 		Code:          code,
-		Redirect_uri:  "http://localhost:8080/auth/code/",
+		Redirect_uri:  "http://localhost:4200/dashboard/",
 	}
 
 	b, err := json.Marshal(u)
