@@ -50,6 +50,7 @@ type SoldItemMeli struct {
 
 // PREGUNTAS SIN RESPONDER
 type QuestionMeli struct {
+	Item_id string        `json:"item_id"`
 	Date_created string   `json:"date_created"`
 	Text string           `json:"text"`
 	Status string         `json:"status"`
@@ -62,6 +63,7 @@ type QuestionsMeli struct {
 // ESTRUCTURA PARA ENVIAR AL FRONT
 
 type Item struct {
+	Id string
 	Title string
 	Quantity int
 	Price float64
@@ -99,16 +101,16 @@ func GetDashboard (c *gin.Context){
 
 	// Obtenemos listado de ids de items del vendedor con id de vendedor y accessToken dinamicos
 
-	resp1, err := http.Get("https://api.mercadolibre.com/users/"+ strconv.Itoa(TokenR.User_id) +"/items/search?access_token=" + TokenR.Access_token)
+	ids, err := http.Get("https://api.mercadolibre.com/users/"+ strconv.Itoa(TokenR.User_id) +"/items/search?access_token=" + TokenR.Access_token)
 
 	if err != nil {
 		fmt.Errorf("Error", err.Error())
 		return
 	}
 
-	defer resp1.Body.Close()
+	defer ids.Body.Close()
 
-	dataItemsId, err := ioutil.ReadAll(resp1.Body)
+	dataItemsId, err := ioutil.ReadAll(ids.Body)
 
 	var itemsIds ItemsIdMeli
 	json.Unmarshal(dataItemsId, &itemsIds)
@@ -128,6 +130,7 @@ func GetDashboard (c *gin.Context){
 
 		var itemTemp Item
 
+		itemTemp.Id = item.Id
 		itemTemp.Title = item.Title
 		itemTemp.Price = item.Price
 		itemTemp.FirstPicture = item.Pictures[0].Url
@@ -187,10 +190,14 @@ func GetDashboard (c *gin.Context){
 		var UnansweredQuestiontemp Unanswered_Question
 
 		for i := 0; i < len(questions.Questions); i++ {
-			if len(questions.Questions) == 0 || questions.Questions[i].Status != "UNANSWERED" {
+			if  len(questions.Questions) == 0 || questions.Questions[i].Status != "UNANSWERED" {
 				continue
 			}
-			UnansweredQuestiontemp.Title = Dashboard.Items[i].Title
+			for j := 0; j < len(Dashboard.Items); j++ {
+				if Dashboard.Items[j].Id == questions.Questions[i].Item_id {
+					UnansweredQuestiontemp.Title = Dashboard.Items[j].Title
+				}
+			}
 			UnansweredQuestiontemp.Question_date = questions.Questions[i].Date_created
 			UnansweredQuestiontemp.Question_text = questions.Questions[i].Text
 

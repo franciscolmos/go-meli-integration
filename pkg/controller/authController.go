@@ -33,12 +33,11 @@ type TokenResp struct {
 // FUNCIONES PARA INTERCAMBIAR EL CODE POR UN ACCESS TOKEN
 func GetToken(c *gin.Context) {
 	code = c.Query("code")
-	fmt.Println("code: " + code)
 	TokenRequest(code, c)
 }
 
 func TokenRequest(code string, c *gin.Context) {
-	u := Token{
+	token := Token{
 		Grant_type:    "authorization_code",
 		Client_id:     2760149476611182,
 		Client_secret: "G0vTscPHYNlLrB148wwdsjuwkqWU1HOy",
@@ -46,16 +45,16 @@ func TokenRequest(code string, c *gin.Context) {
 		Redirect_uri:  "http://localhost:4200/dashboard/",
 	}
 
-	b, err := json.Marshal(u)
+	jsonToken, err := json.Marshal(token)
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(string(b))
+	fmt.Println(string(jsonToken))
 
 	// Intercambiamos code por token
-	resp, err := http.Post("https://api.mercadolibre.com/oauth/token", "application/json; application/x-www-form-urlencoded", bytes.NewBuffer(b))
+	resp, err := http.Post("https://api.mercadolibre.com/oauth/token", "application/json; application/x-www-form-urlencoded", bytes.NewBuffer(jsonToken))
 
 	if err != nil {
 		fmt.Errorf("Error", err.Error())
@@ -65,6 +64,11 @@ func TokenRequest(code string, c *gin.Context) {
 	defer resp.Body.Close()
 
 	data, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		fmt.Errorf("Error", err.Error())
+		return
+	}
 
 	bodyString := string(data)
 	fmt.Println(bodyString)
