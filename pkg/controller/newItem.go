@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 )
 
 //SUBESTRUCTURAS NECESARIAS
@@ -34,7 +35,7 @@ type NewItem struct {
 	CategoryId string `json:"category_id"`
 	Price float64 `json:"price"`
 	Currency_id string `json:"currency_id"`
-	Available_quantity int `json:"available_quantity"`
+	Available_quantity int64 `json:"available_quantity"`
 	Buying_mode string `json:"buying_mode"`
 	Condition string `json:"condition"`
 	Listing_type_id string `json:"listing_type_id"`
@@ -51,9 +52,31 @@ type Response struct {
 	Title string `json:"title"`
 }
 
-var ResponseNewItem Response
+type MyItem struct {
+	Title string `json:"title"`
+	Quantity string `json:"quantity"`
+	Price string `json:"price"`
+}
 
-func PostItem ( c *gin.Context) {
+var ResponseNewItem MyItem
+
+func PostItem (c *gin.Context) {
+
+	data, err := ioutil.ReadAll(c.Request.Body)
+
+	if err != nil {
+		fmt.Errorf("Error", err.Error())
+		return
+	}
+
+	itemToPost := string(data)
+
+	fmt.Println(itemToPost)
+
+	json.Unmarshal(data, &ResponseNewItem)
+
+	fmt.Printf("%+v\n", ResponseNewItem)
+
 	atributes := []Atribute{
 		{
 			Id: "BRAND",
@@ -86,12 +109,16 @@ func PostItem ( c *gin.Context) {
 		Plain_text: "Descripción con Texto Plano \n",
 	}
 
+	//convertimos los parametros del body que enviamos desde el front a float y entero respectivamente porque vienen como strings
+	price, err :=strconv.ParseFloat(ResponseNewItem.Price, 64)
+	quantity, err :=strconv.ParseInt(ResponseNewItem.Quantity, 10, 64)
+
 	newItem := NewItem{
-		Title: "item de prueba",
+		Title: ResponseNewItem.Title,
 		CategoryId: "MLA3530",
-		Price: 2960,
+		Price: price,
 		Currency_id: "ARS",
-		Available_quantity: 20,
+		Available_quantity: quantity,
 		Buying_mode: "buy_it_now",
 		Condition: "new",
 		Listing_type_id: "gold_special",
@@ -115,18 +142,17 @@ func PostItem ( c *gin.Context) {
 
 	defer responsePostNewItem.Body.Close()
 
-	data, err := ioutil.ReadAll(responsePostNewItem.Body)
+	response, err := ioutil.ReadAll(responsePostNewItem.Body)
 
 	if err != nil {
 		fmt.Errorf("Error", err.Error())
 		return
 	}
 
-	bodyString := string(data)
+	bodyString := string(response)
 	fmt.Println(bodyString)
 
 	json.Unmarshal(data, &ResponseNewItem)
 
 	c.JSON(200, ResponseNewItem)
-
 }
