@@ -62,18 +62,18 @@ var ResponseNewItem MyItem
 
 func PostItem (c *gin.Context) {
 
-	data, err := ioutil.ReadAll(c.Request.Body)
+	bodyFront, err := ioutil.ReadAll(c.Request.Body)
 
 	if err != nil {
 		fmt.Errorf("Error", err.Error())
 		return
 	}
 
-	itemToPost := string(data)
+	itemToPost := string(bodyFront)
 
 	fmt.Println(itemToPost)
 
-	json.Unmarshal(data, &ResponseNewItem)
+	json.Unmarshal(bodyFront, &ResponseNewItem)
 
 	fmt.Printf("%+v\n", ResponseNewItem)
 
@@ -131,7 +131,7 @@ func PostItem (c *gin.Context) {
 
 	jsonNewItem, _ := json.Marshal(newItem)
 
-	fmt.Println(string(jsonNewItem))
+	//fmt.Println(string(jsonNewItem))
 
 	responsePostNewItem, err := http.Post("https://api.mercadolibre.com/items?access_token=" + TokenR.Access_token, "application/json; application/x-www-form-urlencoded", bytes.NewBuffer(jsonNewItem))
 
@@ -152,7 +152,7 @@ func PostItem (c *gin.Context) {
 	bodyString := string(response)
 	fmt.Println(bodyString)
 
-	json.Unmarshal(data, &ResponseNewItem)
+	json.Unmarshal(response, &ResponseNewItem)
 
 	c.JSON(200, ResponseNewItem)
 }

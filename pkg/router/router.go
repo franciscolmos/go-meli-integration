@@ -7,9 +7,9 @@ import (
 
 func RunAPI() {
 	r := gin.Default()
-	r.GET("/auth/code", controller.GetToken)
-	r.GET("/dashboard", controller.GetDashboard)
-	r.POST("/post/item", controller.PostItem)
+	r.GET("api/auth/code", controller.GetToken)
+	r.GET("api/dashboard", controller.GetDashboard)
+	r.POST("api/post/item", controller.PostItem)
 
 	r.Run( ":8080")
 }
