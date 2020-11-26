@@ -21,7 +21,8 @@ $ go get
 $ go run main.go 
 ```
 
-* Abrir el navegador en la url
+* Levantar el proyecto de Angular: https://github.com/franciscolmos/go-meli-integration-client
+* Una vez que este corriendo el servidor del cliente, colocar en la url:
 ```
 http://localhost:4200/home 
 ```
