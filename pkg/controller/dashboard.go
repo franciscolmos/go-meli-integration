@@ -51,6 +51,7 @@ type SoldItemMeli struct {
 
 // PREGUNTAS SIN RESPONDER
 type QuestionMeli struct {
+	Id int                `json:"id"`
 	Item_id string        `json:"item_id"`
 	Date_created string   `json:"date_created"`
 	Text string           `json:"text"`
@@ -86,6 +87,7 @@ type Sale_Order struct {
 }
 
 type Unanswered_Question struct {
+	Id int
 	Question_date string
 	Title string
 	Question_text string
@@ -191,6 +193,7 @@ func GetDashboard (c *gin.Context){
 		var UnansweredQuestiontemp Unanswered_Question
 
 		for i := 0; i < len(questions.Questions); i++ {
+			UnansweredQuestiontemp.Id = questions.Questions[i].Id
 			if  len(questions.Questions) == 0 || questions.Questions[i].Status != "UNANSWERED" {
 				continue
 			}

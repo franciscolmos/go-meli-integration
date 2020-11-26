@@ -10,7 +10,7 @@ func RunAPI() {
 	r.GET("api/auth/code", controller.GetToken)
 	r.GET("api/dashboard", controller.GetDashboard)
 	r.POST("api/post/item", controller.PostItem)
+	r.POST("api/post/answer", controller.AnswerQuestion)
 
 	r.Run( ":8080")
 }
-
