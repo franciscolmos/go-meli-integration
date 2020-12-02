@@ -51,7 +51,7 @@ func TokenRequest(code string, c *gin.Context) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(string(jsonToken))
+	//fmt.Println(string(jsonToken))
 
 	// Intercambiamos code por token
 	resp, err := http.Post("https://api.mercadolibre.com/oauth/token", "application/json; application/x-www-form-urlencoded", bytes.NewBuffer(jsonToken))
@@ -70,12 +70,11 @@ func TokenRequest(code string, c *gin.Context) {
 		return
 	}
 
-	bodyString := string(data)
-	fmt.Println(bodyString)
+	//bodyString := string(data)
+	//fmt.Println(bodyString)
 
 	json.Unmarshal(data, &TokenR)
-	fmt.Printf("%+v\n", TokenR)
+	//fmt.Printf("%+v\n", TokenR)
 
 	c.JSON(200, TokenR)
 }
-
