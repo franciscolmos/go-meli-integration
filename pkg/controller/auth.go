@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/franciscolmos/go-meli-integration/pkg/database"
+	"github.com/franciscolmos/go-meli-integration/pkg/database/model"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 var code string
@@ -75,6 +78,13 @@ func TokenRequest(code string, c *gin.Context) {
 
 	json.Unmarshal(data, &TokenR)
 	//fmt.Printf("%+v\n", TokenR)
+
+	user := model.User{AccessToken: TokenR.Access_token, RefreshToken: TokenR.Refresh_token, UserIdMeli: TokenR.User_id, CreatedAt:time.Now(), UpdatedAt: time.Now() }
+
+	db := database.ConnectDB()
+	result := db.Create(&user)
+	println(result)
+	
 
 	c.JSON(200, TokenR)
 }

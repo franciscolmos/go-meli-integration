@@ -20,4 +20,7 @@ require (
 	gopkg.in/check.v1 v1.0.0-20200902074654-038fdea0a05b // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776 // indirect
+	gorm.io/driver/mysql v1.0.3
+	gorm.io/driver/sqlite v1.1.4 // indirect
+	gorm.io/gorm v1.20.7
 )
