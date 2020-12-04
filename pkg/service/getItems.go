@@ -83,6 +83,7 @@ func GetItems( channel chan [] Item ) {
 
 		items = append(items, itemTemp)
 
+		//INSERTAMOS EN LA BASE DE DATOS LOS ITEMS QUE NO ESTEN CARGADOS
 		itemDb := model.Item{ Title: item.Title,
 							  Quantity: item.Available_quantity,
 							  Price: item.Price,
@@ -93,8 +94,10 @@ func GetItems( channel chan [] Item ) {
 
 		var items [] model.Item
 
+		//Consultamos si existe un item con el id que nos devuelve meli
 		db.Where("item_id = ?", item.Id).First(&items)
 
+		//en caso de exista, entonces continuamos con el que sigue, pero si no existe, lo agregamos a la base de datos.
 		if len(items) != 0 {
 			continue
 		} else{
