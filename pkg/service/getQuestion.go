@@ -3,8 +3,11 @@ package service
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/franciscolmos/go-meli-integration/pkg/database"
+	"github.com/franciscolmos/go-meli-integration/pkg/database/model"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 // PREGUNTAS SIN RESPONDER
@@ -33,6 +36,8 @@ func getQuestion() []Unanswered_Question {
 	// Preguntas pendientes por responder por cada ítem ordenadas de las más antiguas a las más recientes.
 	var Unanswered_Questions []Unanswered_Question
 
+	db := database.ConnectDB()
+
 	for i := 0; i < len(itemsIds.Id); i++ {
 		resp3, err := http.Get("https://api.mercadolibre.com/questions/search?item=" + itemsIds.Id[i] + "&access_token=" + Token + "&sort_fields=date_created&sort_types=ASC")
 		if err != nil {
@@ -60,6 +65,24 @@ func getQuestion() []Unanswered_Question {
 			UnansweredQuestiontemp.Question_text = questions.Questions[i].Text
 
 			Unanswered_Questions = append(Unanswered_Questions, UnansweredQuestiontemp)
+
+			question := model.Question{
+				Text: UnansweredQuestiontemp.Question_text,
+				Question_Id: UnansweredQuestiontemp.Id,
+				ItemTitle: UnansweredQuestiontemp.Title,
+				CreatedAt:time.Now(),
+				UpdatedAt: time.Now() }
+
+			var questions [] model.Question
+
+
+			//Consultamos si existe un item con el id que nos devuelve meli
+			db.Where("question_id = ?",UnansweredQuestiontemp.Id).First(&questions)
+
+			//en caso de exista, entonces continuamos con el que sigue, pero si no existe, lo agregamos a la base de datos.
+			if len(questions) == 0 {
+				db.Create(&question)
+			}
 		}
 	}
 
