@@ -79,12 +79,28 @@ func TokenRequest(code string, c *gin.Context) {
 	json.Unmarshal(data, &TokenR)
 	//fmt.Printf("%+v\n", TokenR)
 
-	user := model.User{AccessToken: TokenR.Access_token, RefreshToken: TokenR.Refresh_token, UserIdMeli: TokenR.User_id, CreatedAt:time.Now(), UpdatedAt: time.Now() }
+
+	// REGISTRAMOS EN LA BASE DE DATOS EL USUARIO QUE ACABA DE INICIAR SESION, SI YA ESTA REGISTRADO SOLO SE ACTUALIZAN DATOS
+	// EN CASO CONTRARIO SE CREA UNA NUEVA FILA.
+	user := model.User{ AccessToken: TokenR.Access_token,
+						RefreshToken: TokenR.Refresh_token,
+						UserIdMeli: TokenR.User_id,
+						CreatedAt:time.Now(),
+						UpdatedAt: time.Now() }
 
 	db := database.ConnectDB()
-	result := db.Create(&user)
-	println(result)
-	
+
+	var users [] model.User
+
+	//Consultamos si ese usuario ya esta registrado en la db
+	db.Where("user_id_meli = ?", TokenR.User_id).First(&users)
+
+	//en caso de que si esta registrado, entonces se actualizan sus datos, caso contrario se crea un nuevo registro.
+	if len(users) != 0 {
+		db.Model(model.User{}).Where("user_id_meli = ?", TokenR.User_id).Updates(user)
+	}else {
+		db.Create(&user)
+	}
 
 	c.JSON(200, TokenR)
 }

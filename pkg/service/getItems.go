@@ -3,9 +3,12 @@ package service
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/franciscolmos/go-meli-integration/pkg/database"
+	"github.com/franciscolmos/go-meli-integration/pkg/database/model"
 	"io/ioutil"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 // ITEMS DEL VENDEDOR
@@ -56,6 +59,9 @@ func GetItems( channel chan [] Item ) {
 
 	// Listado de productos (Título, Cantidad, Precio, Primera foto)
 	var items [] Item
+
+	db := database.ConnectDB()
+
 	for i := 0; i < len(itemsIds.Id); i++ {
 		resp2, err := http.Get("https://api.mercadolibre.com/items/" + itemsIds.Id[i] + "?access_token=" + Token)
 		if err != nil {
@@ -76,6 +82,24 @@ func GetItems( channel chan [] Item ) {
 		itemTemp.Quantity = item.Available_quantity
 
 		items = append(items, itemTemp)
+
+		itemDb := model.Item{ Title: item.Title,
+							  Quantity: item.Available_quantity,
+							  Price: item.Price,
+							  FirstPicture: item.Pictures[0].Url,
+							  ItemId: item.Id,
+							  CreatedAt:time.Now(),
+							  UpdatedAt: time.Now() }
+
+		var items [] model.Item
+
+		db.Where("item_id = ?", item.Id).First(&items)
+
+		if len(items) != 0 {
+			continue
+		} else{
+			db.Create(&itemDb)
+		}
 	}
 
 	channel <- items
