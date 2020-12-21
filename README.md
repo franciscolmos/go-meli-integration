@@ -86,5 +86,28 @@ USUARIO COMPRADOR 2
     "email": "test_user_77907779@testuser.com"
 }
 ```
+
+### INSTALACION XAMPP
+
+* Es necesario instalar el cliente XAMPP de APACHE y MySQL para poder levantar la base de datos donde almacenaremos información muy importante respecto a ITEMS, VENTAS y PREGUNTAS.
+
+https://www.apachefriends.org/es/download.html
+
+![All text](assets/xampp.png "XAMPP Control Panel")
+
+### INSTALACION MySQL Workbench
+
+* Es necesario instalar esta herramienta para poder interactuar con la base de datos, realizar consultas y visuzalizar que los ITEMS, USUARIOS Y PREGUNTAS están realmente cargadas.
+
+(Instalador para Windows)
+https://dev.mysql.com/downloads/installer/
+
+![All text](assets/mysqlWorkbench.png "XAMPP Control Panel")
+
+* Parámetros de conexión
+
+![All text](assets/parametrosConexion.png "XAMPP Control Panel")
+
+
  
  
