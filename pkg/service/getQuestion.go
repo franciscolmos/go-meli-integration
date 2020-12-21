@@ -48,40 +48,44 @@ func getQuestion() []Unanswered_Question {
 
 		var questions QuestionsMeli
 		json.Unmarshal(dataQuestions, &questions)
+		fmt.Println("Estructura questions total: ",questions)
 
 		var UnansweredQuestiontemp Unanswered_Question
 
-		for i := 0; i < len(questions.Questions); i++ {
-			UnansweredQuestiontemp.Id = questions.Questions[i].Id
-			if len(questions.Questions) == 0 || questions.Questions[i].Status != "UNANSWERED" {
-				continue
-			}
-			for j := 0; j < len(Dash.Items); j++ {
-				if Dash.Items[j].Id == questions.Questions[i].Item_id {
-					UnansweredQuestiontemp.Title = Dash.Items[j].Title
+		for j:= 0; j < len(questions.Questions); j++ {
+			println("Id preguntas: ",questions.Questions[j].Id)
+			UnansweredQuestiontemp.Id = questions.Questions[j].Id
+			if len(questions.Questions) != 0 && questions.Questions[j].Status == "UNANSWERED" {
+				for k := 0; k < len(Dash.Items); k++ {
+					fmt.Println("ITEMS: ",Dash.Items[k])
+					if Dash.Items[k].Id == questions.Questions[j].Item_id {
+						UnansweredQuestiontemp.Title = Dash.Items[k].Title
+					}
 				}
-			}
-			UnansweredQuestiontemp.Question_date = questions.Questions[i].Date_created
-			UnansweredQuestiontemp.Question_text = questions.Questions[i].Text
+				UnansweredQuestiontemp.Question_date = questions.Questions[j].Date_created
+				UnansweredQuestiontemp.Question_text = questions.Questions[j].Text
 
-			Unanswered_Questions = append(Unanswered_Questions, UnansweredQuestiontemp)
+				fmt.Println( UnansweredQuestiontemp.Id )
+				Unanswered_Questions = append(Unanswered_Questions, UnansweredQuestiontemp)
 
-			question := model.Question{
-				Text: UnansweredQuestiontemp.Question_text,
-				Question_Id: UnansweredQuestiontemp.Id,
-				ItemTitle: UnansweredQuestiontemp.Title,
-				CreatedAt:time.Now(),
-				UpdatedAt: time.Now() }
+				question := model.Question{
+					Text: UnansweredQuestiontemp.Question_text,
+					ItemTitle: UnansweredQuestiontemp.Title,
+					CreatedAt:time.Now(),
+					UpdatedAt: time.Now() }
 
-			var questions [] model.Question
+				var questions [] model.Question
 
 
-			//Consultamos si existe un item con el id que nos devuelve meli
-			db.Where("question_id = ?",UnansweredQuestiontemp.Id).First(&questions)
+				//Consultamos si existe un item con el id que nos devuelve meli
+				db.Where("text = ?",UnansweredQuestiontemp.Question_text).First(&questions)
 
-			//en caso de exista, entonces continuamos con el que sigue, pero si no existe, lo agregamos a la base de datos.
-			if len(questions) == 0 {
-				db.Create(&question)
+				//en caso de exista, entonces continuamos con el que sigue, pero si no existe, lo agregamos a la base de datos.
+				if len(questions) == 0 {
+					db.Create(&question)
+				}
+
+				UnansweredQuestiontemp.Id = 0
 			}
 		}
 	}
